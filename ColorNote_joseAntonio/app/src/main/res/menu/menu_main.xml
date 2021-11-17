@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/icAdd_main"
+        android:icon="@drawable/ic_add_note"
+        android:title="Añadir nota"
+        android:text="Añadir nota"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/icHora_main"
+        android:icon="@drawable/ic_hora"
+        android:title="Ordenar por hora"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/icBuscar_main"
+        android:icon="@drawable/ic_buscar"
+        android:title="Buscar"
+        app:showAsAction="always"/>
+</menu>

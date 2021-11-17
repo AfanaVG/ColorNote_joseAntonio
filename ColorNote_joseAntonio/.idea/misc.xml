@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/ic_add_note.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/ic_buscar.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/ic_hora.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/font/font.xml" value="0.284375" />
-        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/menu/menu_main.xml" value="0.264" />
       </map>
     </option>
   </component>
