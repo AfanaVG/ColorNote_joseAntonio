@@ -12,5 +12,15 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/txtNegro</item>
+
     </style>
+
+
+
+    <style name="txtNegro">
+        <item name="android:textColor">@color/azul1</item>
+        <item name="android:fontFamily">@font/oldnewspaper</item>
+    </style>
+
 </resources>
