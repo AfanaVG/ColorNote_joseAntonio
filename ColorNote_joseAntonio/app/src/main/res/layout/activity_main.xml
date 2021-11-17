@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listaNotas_mainActivity"
         android:layout_width="413dp"
         android:layout_height="731dp"
         android:background="@color/azul6"
@@ -14,14 +15,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="211dp"
-        android:layout_height="130dp"
-        android:text="TextView"
-        android:textSize="34sp"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="242dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
