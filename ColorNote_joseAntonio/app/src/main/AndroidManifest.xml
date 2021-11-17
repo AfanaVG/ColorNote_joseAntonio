@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ColorNote_joseAntonio">
         <activity
+            android:name=".ListaTareaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".NotaSimpleActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
