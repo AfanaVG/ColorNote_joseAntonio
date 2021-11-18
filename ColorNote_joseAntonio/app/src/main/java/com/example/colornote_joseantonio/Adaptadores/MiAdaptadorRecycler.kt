@@ -7,9 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colornote_joseantonio.Model.Nota
 import com.example.colornote_joseantonio.R
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : RecyclerView.Adapter<MiAdaptadorRecycler.ViewHolder>() {
@@ -76,6 +81,9 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
 
         //Como en el ejemplo general de las listas (ProbandoListas) vemos que se puede inflar cada elemento con una card o con un layout.
         val nombreNota = view.findViewById(R.id.txtNombre_itemNota) as TextView
+        val constraintFondo = view.findViewById(R.id.clFondo_itemNota) as ConstraintLayout
+        val horaNota = view.findViewById(R.id.txtHora_itemNota) as TextView
+        val fechaNota = view.findViewById(R.id.txtFecha_itemNota) as TextView
 
 
 
@@ -86,6 +94,11 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
          */
         fun bind(nota: Nota, context: Context, pos: Int, miAdaptadorRecycler: MiAdaptadorRecycler){
             nombreNota.text = nota.nombre
+            horaNota.text = nota.fechaHora.hours.toString()+" : "+nota.fechaHora.minutes.toString()
+
+            val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
+            fechaNota.text = dateFormat.format(nota.fechaHora)
+
 
 
 /**
@@ -98,12 +111,24 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
             //Para marcar o desmarcar al seleccionado usamos el siguiente código.
             if (pos == MiAdaptadorRecycler.seleccionado) {
                 with(nombreNota) {
-                    this.setTextColor(resources.getColor(R.color.purple_200))
+                    this.setTextColor(resources.getColor(R.color.azul6))
+                }
+                with(horaNota) {
+                    this.setTextColor(resources.getColor(R.color.azul6))
+                }
+                with(constraintFondo) {
+                    this.setBackgroundColor(resources.getColor(R.color.azul1))
                 }
             }
             else {
                 with(nombreNota) {
-                    this.setTextColor(resources.getColor(R.color.black))
+                    this.setTextColor(resources.getColor(R.color.azul1))
+                }
+                with(horaNota) {
+                    this.setTextColor(resources.getColor(R.color.azul1))
+                }
+                with(constraintFondo) {
+                    this.setBackgroundColor(resources.getColor(R.color.azul6))
                 }
             }
             //Se levanta una escucha para cada item. Si pulsamos el seleccionado pondremos la selección a -1, en otro caso será el nuevo sleccionado.
