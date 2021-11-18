@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        val currentDate = sdf.format(Date())
-        Log.e("jose",currentDate)
 
-        var pepe = arrayListOf<Nota>(Nota("hola","simple", Date()))
-        pepe.add(Nota("hola","simple",  Date()))
+        //var pepe = arrayListOf<Nota>(Nota("hola","simple", Date()))
+        Auxiliar.Conexion.addNota(this,Nota("Hey","ol",Date()))
+        var pepe = Auxiliar.Conexion.obtenerNotas(this)
+
+
 
 
 

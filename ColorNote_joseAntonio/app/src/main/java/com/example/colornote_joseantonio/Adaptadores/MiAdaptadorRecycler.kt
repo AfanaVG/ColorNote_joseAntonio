@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
+import com.example.colornote_joseantonio.Auxiliar.Utiles
 import com.example.colornote_joseantonio.Model.Nota
 import com.example.colornote_joseantonio.R
 import java.text.SimpleDateFormat
@@ -94,10 +95,8 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
          */
         fun bind(nota: Nota, context: Context, pos: Int, miAdaptadorRecycler: MiAdaptadorRecycler){
             nombreNota.text = nota.nombre
-            horaNota.text = nota.fechaHora.hours.toString()+" : "+nota.fechaHora.minutes.toString()
-
-            val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
-            fechaNota.text = dateFormat.format(nota.fechaHora)
+            horaNota.text = Utiles.FechaFormato.getFormatoFechaHorMinSec().format(nota.fechaHora)
+            fechaNota.text = Utiles.FechaFormato.getFormatoFechaCalendario().format(nota.fechaHora)
 
 
 
