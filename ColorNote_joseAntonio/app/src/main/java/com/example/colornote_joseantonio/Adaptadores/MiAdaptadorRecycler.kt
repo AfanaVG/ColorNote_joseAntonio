@@ -85,6 +85,7 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
         val constraintFondo = view.findViewById(R.id.clFondo_itemNota) as ConstraintLayout
         val horaNota = view.findViewById(R.id.txtHora_itemNota) as TextView
         val fechaNota = view.findViewById(R.id.txtFecha_itemNota) as TextView
+        val tipoNota = view.findViewById(R.id.txtTipo_itemNota) as TextView
 
 
 
@@ -97,6 +98,7 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
             nombreNota.text = nota.nombre
             horaNota.text = Utiles.FechaFormato.getFormatoFechaHorMinSec().format(nota.fechaHora)
             fechaNota.text = Utiles.FechaFormato.getFormatoFechaCalendario().format(nota.fechaHora)
+            tipoNota.text = nota.tipo
 
 
 

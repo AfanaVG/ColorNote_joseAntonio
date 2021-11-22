@@ -14,7 +14,7 @@ class AdminSQLIteConexion(context: Context, name: String, factory: SQLiteDatabas
     override fun onCreate(db: SQLiteDatabase) {
 
         db.execSQL("create table notas(idN Integer primary key autoincrement, nombre text, tipo text,fechaHora text)")
-        //db.execSQL("create table notasSimples(idNS Integer primary key autoincrement, idN text references notas(idN),contenido text)")
+        db.execSQL("create table notasSimples(idNS Integer primary key autoincrement, idN Integer references notas(idN),contenido text)")
         //db.execSQL("create table notasTareas(idNT Integer primary key autoincrement, idN text references notas(idN),contenido)")
 
 

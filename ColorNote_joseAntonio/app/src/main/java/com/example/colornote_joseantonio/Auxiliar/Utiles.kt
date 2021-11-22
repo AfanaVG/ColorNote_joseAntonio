@@ -1,5 +1,8 @@
 package com.example.colornote_joseantonio.Auxiliar
 
+import android.view.Gravity
+import android.widget.Toast
+import com.example.colornote_joseantonio.R
 import java.text.SimpleDateFormat
 
 object Utiles {
@@ -28,4 +31,6 @@ object Utiles {
             return SimpleDateFormat("yyyy/MM/dd")
         }
     }
+
+
 }
