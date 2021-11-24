@@ -6,6 +6,7 @@ import java.sql.Time
 
 open class Nota():Serializable {
 
+    var idN:Int = 0
     var nombre:String = ""
     var tipo:String = ""
     lateinit var fechaHora:Date
@@ -15,4 +16,13 @@ open class Nota():Serializable {
         this.tipo = tipo
         this.fechaHora = fechaHora
     }
+
+    constructor(idN:Int, nombre:String,  tipo:String,  fechaHora:Date):this(){
+        this.idN = idN
+        this.nombre = nombre
+        this.tipo = tipo
+        this.fechaHora = fechaHora
+    }
+
+
 }

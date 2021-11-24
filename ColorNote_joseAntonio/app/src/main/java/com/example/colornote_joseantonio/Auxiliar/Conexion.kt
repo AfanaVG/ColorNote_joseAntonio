@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.colornote_joseantonio.Auxiliar.Utiles
 import com.example.colornote_joseantonio.Model.Nota
 import com.example.colornote_joseantonio.Model.NotaSimple
+import com.example.colornote_joseantonio.Model.NotaTareas
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -42,6 +43,21 @@ object Conexion {
 
     }
 
+    fun addNotaTarea(contexto: AppCompatActivity,nt:NotaTareas){
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val registroNotaTarea = ContentValues()
+       // val selectNota = bd.rawQuery("select idN from notas ORDER BY idN DESC LIMIT 1", null)
+
+
+            registroNotaTarea.put("idN", nt.idN)
+            registroNotaTarea.put("texto",nt.texto)
+            registroNotaTarea.put("tachada",nt.tachada)
+            bd.insert("notasTareas", null, registroNotaTarea)
+
+        bd.close()
+    }
+
     fun addNotaSimple(contexto: AppCompatActivity){
         val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
         val bd = admin.writableDatabase
@@ -56,12 +72,50 @@ object Conexion {
         bd.close()
     }
 
+    fun obtenerUltimaNota(contexto: AppCompatActivity):Nota{
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val selectNota = bd.rawQuery("select idN,nombre,tipo,fechaHora from notas ORDER BY idN DESC LIMIT 1", null)
+        var n:Nota = Nota()
+
+        while (selectNota.moveToNext()){
+           n  = Nota(selectNota.getInt(0),selectNota.getString(1),
+                selectNota.getString(2),Utiles.FechaFormato.getFormatoFechaCompleta().parse(selectNota.getString(3)))
+        }
+
+        return n
+    }
+
+    fun obtenerNotaSimple(contexto: AppCompatActivity,nota:Nota):NotaSimple{
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val selectNotaSimple = bd.rawQuery("select contenido from notasSimples where idN=${nota.idN}", null)
+        var n:NotaSimple = NotaSimple(0,"null","null",Date(),"")
+        while (selectNotaSimple.moveToNext()){
+            n = NotaSimple(nota.idN,nota.nombre,nota.tipo,nota.fechaHora,selectNotaSimple.getString(0))
+        }
+        return n
+    }
+
+    fun obtenerNotaTareas(contexto: AppCompatActivity,nota:Nota):ArrayList<NotaTareas>{
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val selectNotaTarea = bd.rawQuery("select idNT,texto,tachada from notasTareas where idN=${nota.idN}", null)
+        var n:ArrayList<NotaTareas> = ArrayList()
+        while (selectNotaTarea.moveToNext()){
+            n.add(NotaTareas(nota.idN,nota.nombre,nota.tipo,nota.fechaHora,selectNotaTarea.getInt(0),selectNotaTarea.getString(1),
+                selectNotaTarea.getInt(2)))
+        }
+        return n
+    }
+
+
     /**
-    fun addNotaLista(contexto: AppCompatActivity){
+    fun addNotaLista(contexto: AppCompatActivity,nl:NotaTareas){
         val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
         val bd = admin.writableDatabase
         val registroNotaSimple = ContentValues()
-        val selectNota = bd.rawQuery("select idN from notas ORDER BY idN DESC LIMIT 1", null)
+       //val selectNota = bd.rawQuery("select idN from notas ORDER BY idN DESC LIMIT 1", null)
 
         while (selectNota.moveToNext()){
             registroNotaSimple.put("idN", selectNota.getInt(0))
@@ -69,7 +123,7 @@ object Conexion {
             bd.insert("notasTareas", null, registroNotaSimple)
         }
         bd.close()
-    }*/
+    }**/
 
 
     fun modNotaSimple(contexto:AppCompatActivity, ns:NotaSimple):Int {
@@ -77,8 +131,8 @@ object Conexion {
         val bd = admin.writableDatabase
         val registro = ContentValues()
 
-        registro.put("nombre", ns.contenido)
-        val cant = bd.update("notasSimples", registro, "idE='${ns.contenido}'", null)
+        registro.put("contenido", ns.contenido)
+        val cant = bd.update("notasSimples", registro, "idN='${ns.idN}'", null)
         bd.close()
         return cant
     }
@@ -96,7 +150,7 @@ object Conexion {
             val fecha = Utiles.FechaFormato.getFormatoFechaCompleta().parse(selectNota.getString(3))
 
             not.add(
-                Nota(selectNota.getString(1),selectNota.getString(2),
+                Nota(selectNota.getInt(0),selectNota.getString(1),selectNota.getString(2),
                     fecha ))
 
         }

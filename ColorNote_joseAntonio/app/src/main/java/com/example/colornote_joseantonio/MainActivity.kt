@@ -1,5 +1,6 @@
 package com.example.colornote_joseantonio
 
+import Auxiliar.Conexion
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,24 +8,32 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colornote_joseantonio.Adaptadores.MiAdaptadorRecycler
+import com.example.colornote_joseantonio.Auxiliar.Utiles
+import com.example.colornote_joseantonio.Auxiliar.Utiles.FechaFormato.lanzarToast
 import com.example.colornote_joseantonio.Model.Nota
+import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.StringBuilder
 import java.util.Date
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var miRecyclerView : RecyclerView
-
+    lateinit var listaNotas:ArrayList<Nota>
+    lateinit var miAdapter:MiAdaptadorRecycler
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,26 +41,53 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        //var pepe = arrayListOf<Nota>(Nota("hola","simple", Date()))
 
-        var pepe = Auxiliar.Conexion.obtenerListaNotas(this)
-
-
-
-
-
+         listaNotas = Auxiliar.Conexion.obtenerListaNotas(this)
 
 
         miRecyclerView = findViewById(R.id.listaNotas_mainActivity) as RecyclerView
         miRecyclerView.setHasFixedSize(true)
         miRecyclerView.layoutManager = LinearLayoutManager(this)
-        var miAdapter = MiAdaptadorRecycler(pepe, this)
+        miAdapter = MiAdaptadorRecycler(listaNotas, this)
         miRecyclerView.adapter = miAdapter
 
-        //var ml: ListView = findViewById(R.id.listVNotas_MainActivity)
+        listaNotas_mainActivity.addOnItemTouchListener(
+            Utiles.FechaFormato.RecyclerItemClickListener(
+                this,
+                listaNotas_mainActivity,
+                object : Utiles.FechaFormato.RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        when(listaNotas[position].tipo){
+
+                            "Simple"-> abrirNotaSimple(listaNotas[position])
+                            "Lista"-> abrirNotaTarea(listaNotas[position])
+                        }
+
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                        // do whatever
+                    }
+                })
+        )
+
+
 
 
     }
+
+    private  fun  abrirNotaSimple( nota:Nota){
+        val intent = Intent(this, NotaSimpleActivity::class.java)
+        intent.putExtra("datosNota",nota)
+        startActivity(intent)
+    }
+    private  fun  abrirNotaTarea( nota:Nota){
+        val intent = Intent(this, ListaTareaActivity::class.java)
+        intent.putExtra("datosNota",nota)
+        startActivity(intent)
+    }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -72,31 +108,41 @@ class MainActivity : AppCompatActivity() {
                 builder.setPositiveButton("Simple") { dialogInterface: DialogInterface, i: Int ->
                     if (!input.text.isEmpty()){
                     Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Simple", Date()))
+
+
                     val intent = Intent(this, NotaSimpleActivity::class.java)
+                        intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
                     startActivity(intent)
                     }else{
-                        lanzarToast("La nota necesita un nombre")
+                        lanzarToast("La nota necesita un nombre",this@MainActivity)
                     }
                 }
                 builder.setNegativeButton("Lista"){ dialogInterface: DialogInterface, i: Int ->
                     if (!input.text.isEmpty()){
-                        val intent = Intent(this, ListaTareaActivity::class.java)
                         Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Lista", Date()))
+
+                        val intent = Intent(this, ListaTareaActivity::class.java)
+                        intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
                         startActivity(intent)
                     }else{
-                        lanzarToast("La nota necesita un nombre")
+                        lanzarToast("La nota necesita un nombre",this)
                     }
 
                 }
 
                 builder.show()
             }
+
+            R.id.icHora_main->{
+                var pepe = Auxiliar.Conexion.obtenerListaNotas(this)
+                pepe.sortByDescending {it.fechaHora }
+                var miAdapter = MiAdaptadorRecycler(pepe, this)
+                miRecyclerView.adapter = miAdapter
+
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun lanzarToast(mensaje:String){
-        val toast = Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT)
-        toast.show()
-    }
+
 }
