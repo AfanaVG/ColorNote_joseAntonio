@@ -4,6 +4,7 @@ import Auxiliar.Conexion
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import com.example.colornote_joseantonio.Auxiliar.Utiles.FechaFormato.lanzarToast
 import com.example.colornote_joseantonio.Model.Nota
 import kotlinx.android.synthetic.main.activity_nota_simple.*
@@ -27,5 +28,10 @@ class NotaSimpleActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_nota_simple, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }

@@ -1,9 +1,11 @@
 package com.example.colornote_joseantonio.Adaptadores
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -40,20 +42,30 @@ class TareaAdapter(var notas : ArrayList<NotaTareas>, var  context: Context) : R
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val nombreTarea = view.findViewById(R.id.txtNombre_itemTarea) as TextView
-
+        val imgTarea = view.findViewById(R.id.imgCheck_itemTarea) as ImageView
 
         fun bind(nota: NotaTareas, context: Context, pos: Int, miAdaptadorRecycler: TareaAdapter){
-            nombreTarea.text = nota.texto
 
 
 
+            when(nota.tachada){
+                0->{
+                    nombreTarea.text = nota.texto
+                    imgTarea.setImageResource(R.drawable.ic_checkoff)
+                }
+                1-> {
+                    nombreTarea.text = nota.texto
+                    nombreTarea.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG)
+                    imgTarea.setImageResource(R.drawable.ic_checkon)
+                }
 
-            if (pos == MiAdaptadorRecycler.seleccionado) {
+
+
 
             }
-            else {
 
-            }
+
+
             itemView.setOnClickListener(
                 View.OnClickListener
             {

@@ -66,7 +66,22 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     override fun onLongItemClick(view: View?, position: Int) {
-                        // do whatever
+                        val builder = AlertDialog.Builder(this@MainActivity)
+                        builder.setTitle("Eliminar")
+                        builder.setMessage("¿Desea eliminar la nota?")
+                        builder.setPositiveButton("Si") { dialogInterface: DialogInterface, i: Int ->
+                            when(listaNotas[position].tipo){
+                                "Simple"->Conexion.delNotaSimple(this@MainActivity,listaNotas[position].idN)
+                                "Lista"->Conexion.delNotaTareaTotal(this@MainActivity,listaNotas[position].idN)
+                            }
+                            Conexion.delNota(this@MainActivity,listaNotas[position].idN)
+                            recargarLista()
+                        }
+                        builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+
+                        }
+
+                        builder.show()
                     }
                 })
         )
@@ -107,8 +122,9 @@ class MainActivity : AppCompatActivity() {
                 builder.setView(input)
                 builder.setPositiveButton("Simple") { dialogInterface: DialogInterface, i: Int ->
                     if (!input.text.isEmpty()){
-                    Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Simple", Date()))
+                        Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Simple", Date()))
 
+                        recargarLista()
 
                     val intent = Intent(this, NotaSimpleActivity::class.java)
                         intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
@@ -120,6 +136,8 @@ class MainActivity : AppCompatActivity() {
                 builder.setNegativeButton("Lista"){ dialogInterface: DialogInterface, i: Int ->
                     if (!input.text.isEmpty()){
                         Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Lista", Date()))
+
+                        recargarLista()
 
                         val intent = Intent(this, ListaTareaActivity::class.java)
                         intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
@@ -134,14 +152,22 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.icHora_main->{
-                var pepe = Auxiliar.Conexion.obtenerListaNotas(this)
-                pepe.sortByDescending {it.fechaHora }
-                var miAdapter = MiAdaptadorRecycler(pepe, this)
+                var lista = Auxiliar.Conexion.obtenerListaNotas(this)
+                lista.sortByDescending {it.fechaHora }
+                var miAdapter = MiAdaptadorRecycler(lista, this)
                 miRecyclerView.adapter = miAdapter
+
+
 
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun recargarLista(){
+        listaNotas = Auxiliar.Conexion.obtenerListaNotas(this)
+        var miAdapter = MiAdaptadorRecycler(listaNotas, this)
+        miRecyclerView.adapter = miAdapter
     }
 
 

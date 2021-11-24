@@ -73,6 +73,12 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
                 with(constraintFondo) {
                     this.setBackgroundColor(resources.getColor(R.color.azul1))
                 }
+                with(fechaNota) {
+                    this.setTextColor(resources.getColor(R.color.azul6))
+                }
+                with(tipoNota) {
+                    this.setTextColor(resources.getColor(R.color.azul6))
+                }
             }
             else {
                 with(nombreNota) {
@@ -83,6 +89,12 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
                 }
                 with(constraintFondo) {
                     this.setBackgroundColor(resources.getColor(R.color.azul6))
+                }
+                with(fechaNota) {
+                    this.setTextColor(resources.getColor(R.color.azul1))
+                }
+                with(tipoNota) {
+                    this.setTextColor(resources.getColor(R.color.azul1))
                 }
             }
             itemView.setOnClickListener(View.OnClickListener

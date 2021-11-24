@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.example.colornote_joseantonio.Auxiliar.Utiles
 import com.example.colornote_joseantonio.Model.Nota
 import com.example.colornote_joseantonio.Model.NotaTareas
 import kotlinx.android.synthetic.main.activity_lista_tarea.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -48,6 +50,41 @@ class ListaTareaActivity : AppCompatActivity() {
         miAdapter = TareaAdapter(listaTareas, this)
         miRecyclerView.adapter = miAdapter
 
+        listaTareas_listaTareas.addOnItemTouchListener(
+            Utiles.FechaFormato.RecyclerItemClickListener(
+                this,
+                listaTareas_listaTareas,
+                object : Utiles.FechaFormato.RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        when(ntLista[position].tachada){
+
+                            0-> Conexion.modNotaTarea(this@ListaTareaActivity,ntLista[position],1)
+                            1-> Conexion.modNotaTarea(this@ListaTareaActivity,ntLista[position],0)
+                        }
+                        recargarLista()
+
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                        val builder = AlertDialog.Builder(this@ListaTareaActivity)
+                        builder.setTitle("Eliminar")
+                        builder.setMessage("¿Desea eliminar la tarea?")
+                        builder.setPositiveButton("Si") { dialogInterface: DialogInterface, i: Int ->
+                            Conexion.delNotaTarea(this@ListaTareaActivity,ntLista[position].idNT)
+                            recargarLista()
+                        }
+                        builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+
+                        }
+
+                        builder.show()
+
+
+
+                    }
+                })
+        )
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,6 +108,8 @@ class ListaTareaActivity : AppCompatActivity() {
                     if (!input.text.isEmpty()){
                         Auxiliar.Conexion.addNotaTarea(this,
                             NotaTareas(resul.idN,resul.nombre,resul.tipo,resul.fechaHora,0,input.text.toString(),0))
+
+                        recargarLista()
                         Utiles.FechaFormato.lanzarToast(
                             "Tarea añadida correctamente",
                             this
@@ -90,5 +129,11 @@ class ListaTareaActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun recargarLista(){
+        ntLista = Conexion.obtenerNotaTareas(this,resul)
+        var miAdapter = TareaAdapter(ntLista, this)
+        miRecyclerView.adapter = miAdapter
     }
 }

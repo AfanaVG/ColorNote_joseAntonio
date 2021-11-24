@@ -137,6 +137,17 @@ object Conexion {
         return cant
     }
 
+    fun modNotaTarea(contexto:AppCompatActivity, nt:NotaTareas,n:Int):Int {
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val registro = ContentValues()
+
+        registro.put("tachada", n)
+        val cant = bd.update("notasTareas", registro, "idNT='${nt.idNT}'", null)
+        bd.close()
+        return cant
+    }
+
 
 
 
@@ -159,6 +170,34 @@ object Conexion {
     }
 
 
+
+    fun delNotaTarea(contexto: AppCompatActivity, idNT: Int){
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val cant = bd.delete("notasTareas", "idNT='${idNT}'", null)
+        bd.close()
+    }
+
+    fun delNotaTareaTotal(contexto: AppCompatActivity, idN: Int){
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val cant = bd.delete("notasTareas", "idN='${idN}'", null)
+        bd.close()
+    }
+
+    fun delNotaSimple(contexto: AppCompatActivity, idN: Int){
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val cant = bd.delete("notasSimples", "idN='${idN}'", null)
+        bd.close()
+    }
+
+    fun delNota(contexto: AppCompatActivity, idN: Int){
+        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
+        val bd = admin.writableDatabase
+        val cant = bd.delete("notas", "idN='${idN}'", null)
+        bd.close()
+    }
 
 
 
