@@ -15,7 +15,7 @@
         android:background="@color/azul6">
 
         <TextView
-            android:id="@+id/txtNombre_itemTarea"
+            android:id="@+id/txtNombre_itemContacto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"

@@ -4,6 +4,10 @@
 
     <stroke
         android:width="4dp"
-        android:color="@color/azul3" />
+        android:color="@color/azul2"/>
+
+    <solid android:color="@color/azul4" />
+
+
 
 </shape>

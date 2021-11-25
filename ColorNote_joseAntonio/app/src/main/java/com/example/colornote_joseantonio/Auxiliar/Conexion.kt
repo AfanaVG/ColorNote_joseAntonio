@@ -34,10 +34,6 @@ object Conexion {
                 addNotaSimple(contexto)
 
             }
-            "Lista"->{
-                addNotaSimple(contexto)
-
-            }
         }
 
 
@@ -66,7 +62,7 @@ object Conexion {
 
         while (selectNota.moveToNext()){
             registroNotaSimple.put("idN", selectNota.getInt(0))
-            registroNotaSimple.put("contenido","hey")
+            registroNotaSimple.put("contenido","")
             bd.insert("notasSimples", null, registroNotaSimple)
         }
         bd.close()

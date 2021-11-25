@@ -12,21 +12,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="24sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaTareas_listaTareas"
         android:layout_width="326dp"
         android:layout_height="534dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/lista_borde"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNombre_notaLista" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNombre_notaLista"
+        app:layout_constraintVertical_bias="0.325" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

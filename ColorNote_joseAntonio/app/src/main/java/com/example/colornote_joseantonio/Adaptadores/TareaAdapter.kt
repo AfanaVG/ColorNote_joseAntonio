@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colornote_joseantonio.Model.NotaTareas
 import com.example.colornote_joseantonio.R
@@ -41,7 +40,7 @@ class TareaAdapter(var notas : ArrayList<NotaTareas>, var  context: Context) : R
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val nombreTarea = view.findViewById(R.id.txtNombre_itemTarea) as TextView
+        val nombreTarea = view.findViewById(R.id.txtNombre_itemContacto) as TextView
         val imgTarea = view.findViewById(R.id.imgCheck_itemTarea) as ImageView
 
         fun bind(nota: NotaTareas, context: Context, pos: Int, miAdaptadorRecycler: TareaAdapter){
