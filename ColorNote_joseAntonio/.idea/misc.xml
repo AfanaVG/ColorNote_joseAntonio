@@ -10,12 +10,17 @@
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/ic_checkon.xml" value="0.2703125" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/ic_hora.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/ic_mensaje.xml" value="0.2703125" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/lista_borde.xml" value="0.13854166666666667" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/drawable/texto_borde.xml" value="0.13854166666666667" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/font/font.xml" value="0.284375" />
-        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_lista_tarea.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_contactos.xml" value="0.152" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_lista_tarea.xml" value="0.176" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_nota_simple.xml" value="0.152" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/activity_nota_simple.xml" value="0.2" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/item_bd.xml" value="0.10371376811594203" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/item_card.xml" value="0.264" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/item_contacto_card.xml" value="0.23097826086956522" />
+        <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/item_layout.xml" value="0.264" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/item_nota.xml" value="0.2" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/item_nota_card.xml" value="0.4" />
         <entry key="..\:/Users/Afana/Desktop/Clase/Android/ColorNote_joseAntonio/ColorNote_joseAntonio/app/src/main/res/layout/item_tarea_card.xml" value="0.25271739130434784" />
