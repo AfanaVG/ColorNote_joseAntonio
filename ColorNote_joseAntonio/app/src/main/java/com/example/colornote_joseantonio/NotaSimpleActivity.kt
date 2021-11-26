@@ -70,7 +70,6 @@ class NotaSimpleActivity : AppCompatActivity() {
                 intent.putExtra("mensaje",ns.contenido)
                 startActivity(intent)*/
 
-
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("ENVIAR NOTA")
                 builder.setMessage("Introduzca el número al que desea enviar la nota")
@@ -86,18 +85,9 @@ class NotaSimpleActivity : AppCompatActivity() {
                         )
                     }
                 }
-
                 builder.show()
-
-
-
-
-
             }
-
-
         }
-
         return super.onOptionsItemSelected(item)
     }
 

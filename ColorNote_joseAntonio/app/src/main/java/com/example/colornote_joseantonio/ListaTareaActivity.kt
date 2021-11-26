@@ -46,20 +46,7 @@ class ListaTareaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_tarea)
 
-        resul = intent.getSerializableExtra("datosNota") as Nota
-        ntLista = Conexion.obtenerNotaTareas(this,resul)
-
-        txtNombre_notaLista.text = resul.nombre
-
-
-        listaTareas = Auxiliar.Conexion.obtenerNotaTareas(this,resul)
-
-
-        miRecyclerView = findViewById(R.id.listaTareas_listaTareas) as RecyclerView
-        miRecyclerView.setHasFixedSize(true)
-        miRecyclerView.layoutManager = LinearLayoutManager(this)
-        miAdapter = TareaAdapter(listaTareas, this)
-        miRecyclerView.adapter = miAdapter
+        cargarPrincipal()
 
         listaTareas_listaTareas.addOnItemTouchListener(
             Utiles.FechaFormato.RecyclerItemClickListener(
@@ -75,27 +62,41 @@ class ListaTareaActivity : AppCompatActivity() {
                     }
 
                     override fun onLongItemClick(view: View?, position: Int) {
-                        val builder = AlertDialog.Builder(this@ListaTareaActivity)
-                        builder.setTitle("Opciones")
-                        builder.setMessage("¿Qué desea hacer?")
-                        builder.setPositiveButton("Eliminar") { dialogInterface: DialogInterface, i: Int ->
-                            eliminarTarea(position)
-                        }
-                        builder.setNegativeButton("Tomar foto") { dialogInterface: DialogInterface, i: Int ->
-                            tomarFoto()
-                        }
-                        builder.show()
+                        lanzarMenuOpcion(position)
                     }
                 })
         )
 
     }
 
+    fun lanzarMenuOpcion(position: Int){
+        val builder = AlertDialog.Builder(this@ListaTareaActivity)
+        builder.setTitle("Opciones")
+        builder.setMessage("¿Qué desea hacer?")
+        builder.setPositiveButton("Eliminar") { dialogInterface: DialogInterface, i: Int ->
+            eliminarTarea(position)
+        }
+        builder.setNegativeButton("Tomar foto") { dialogInterface: DialogInterface, i: Int ->
+            tomarFoto()
+        }
+        builder.show()
+    }
+
+    fun cargarPrincipal(){
+        resul = intent.getSerializableExtra("datosNota") as Nota
+        ntLista = Conexion.obtenerNotaTareas(this,resul)
+        txtNombre_notaLista.text = resul.nombre
+        listaTareas = Auxiliar.Conexion.obtenerNotaTareas(this,resul)
+        miRecyclerView = findViewById(R.id.listaTareas_listaTareas) as RecyclerView
+        miRecyclerView.setHasFixedSize(true)
+        miRecyclerView.layoutManager = LinearLayoutManager(this)
+        miAdapter = TareaAdapter(listaTareas, this)
+        miRecyclerView.adapter = miAdapter
+    }
+
     fun tomarFoto(){
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), cameraRequest)
-
-
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, cameraRequest)
     }
@@ -127,37 +128,41 @@ class ListaTareaActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        var input =  EditText(this)
-        input.hint = "NOMBRE DE LA TAREA"
-
         when(item.itemId){
             R.id.icAdd_main->{
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("Nueva nota")
-                builder.setMessage("Introduzca el nombre de la tarea")
-                builder.setView(input)
-                builder.setPositiveButton("Añadir") { dialogInterface: DialogInterface, i: Int ->
-                    if (!input.text.isEmpty()){
-                        Auxiliar.Conexion.addNotaTarea(this,
-                            NotaTareas(resul.idN,resul.nombre,resul.tipo,resul.fechaHora,0,input.text.toString(),0))
-                        recargarLista()
-                        Utiles.FechaFormato.lanzarToast(
-                            "Tarea añadida correctamente",
-                            this
-                        )
-                    }else{
-                        Utiles.FechaFormato.lanzarToast(
-                            "La tarea necesita un nombre",
-                            this
-                        )
-                    }
-                }
-                builder.show()
+                addTarea()
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+
+    fun addTarea(){
+        var input =  EditText(this)
+        input.hint = "NOMBRE DE LA TAREA"
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Nueva nota")
+        builder.setMessage("Introduzca el nombre de la tarea")
+        builder.setView(input)
+        builder.setPositiveButton("Añadir") { dialogInterface: DialogInterface, i: Int ->
+            if (!input.text.isEmpty()){
+                Auxiliar.Conexion.addNotaTarea(this,
+                    NotaTareas(resul.idN,resul.nombre,resul.tipo,resul.fechaHora,0,input.text.toString(),0))
+                recargarLista()
+                Utiles.FechaFormato.lanzarToast(
+                    "Tarea añadida correctamente",
+                    this
+                )
+            }else{
+                Utiles.FechaFormato.lanzarToast(
+                    "La tarea necesita un nombre",
+                    this
+                )
+            }
+        }
+        builder.show()
+    }
+
 
     fun recargarLista(){
         ntLista = Conexion.obtenerNotaTareas(this,resul)

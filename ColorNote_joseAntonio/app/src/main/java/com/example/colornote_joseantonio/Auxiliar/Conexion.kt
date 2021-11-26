@@ -102,23 +102,6 @@ object Conexion {
         return n
     }
 
-
-    /**
-    fun addNotaLista(contexto: AppCompatActivity,nl:NotaTareas){
-        val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
-        val bd = admin.writableDatabase
-        val registroNotaSimple = ContentValues()
-       //val selectNota = bd.rawQuery("select idN from notas ORDER BY idN DESC LIMIT 1", null)
-
-        while (selectNota.moveToNext()){
-            registroNotaSimple.put("idN", selectNota.getInt(0))
-            registroNotaSimple.put("contenido","")
-            bd.insert("notasTareas", null, registroNotaSimple)
-        }
-        bd.close()
-    }**/
-
-
     fun modNotaSimple(contexto:AppCompatActivity, ns:NotaSimple):Int {
         val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
         val bd = admin.writableDatabase
@@ -141,9 +124,6 @@ object Conexion {
         return cant
     }
 
-
-
-
     fun obtenerListaNotas(contexto: AppCompatActivity):ArrayList<Nota>{
         val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
         val bd = admin.writableDatabase
@@ -152,17 +132,13 @@ object Conexion {
 
         while (selectNota.moveToNext()) {
             val fecha = Utiles.FechaFormato.getFormatoFechaCompleta().parse(selectNota.getString(3))
-
             not.add(
                 Nota(selectNota.getInt(0),selectNota.getString(1),selectNota.getString(2),
                     fecha ))
-
         }
         bd.close()
         return not
     }
-
-
 
     fun delNotaTarea(contexto: AppCompatActivity, idNT: Int){
         val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)

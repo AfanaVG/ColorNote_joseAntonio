@@ -41,16 +41,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-         listaNotas = Auxiliar.Conexion.obtenerListaNotas(this)
-
-
-        miRecyclerView = findViewById(R.id.listaNotas_mainActivity) as RecyclerView
-        miRecyclerView.setHasFixedSize(true)
-        miRecyclerView.layoutManager = LinearLayoutManager(this)
-        miAdapter = MiAdaptadorRecycler(listaNotas, this)
-        miRecyclerView.adapter = miAdapter
+        cargarPrincipal()
 
         listaNotas_mainActivity.addOnItemTouchListener(
             Utiles.FechaFormato.RecyclerItemClickListener(
@@ -59,37 +50,41 @@ class MainActivity : AppCompatActivity() {
                 object : Utiles.FechaFormato.RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         when(listaNotas[position].tipo){
-
                             "Simple"-> abrirNotaSimple(listaNotas[position])
                             "Lista"-> abrirNotaTarea(listaNotas[position])
                         }
-
                     }
-
                     override fun onLongItemClick(view: View?, position: Int) {
-                        val builder = AlertDialog.Builder(this@MainActivity)
-                        builder.setTitle("Eliminar")
-                        builder.setMessage("¿Desea eliminar la nota?")
-                        builder.setPositiveButton("Si") { dialogInterface: DialogInterface, i: Int ->
-                            when(listaNotas[position].tipo){
-                                "Simple"->Conexion.delNotaSimple(this@MainActivity,listaNotas[position].idN)
-                                "Lista"->Conexion.delNotaTareaTotal(this@MainActivity,listaNotas[position].idN)
-                            }
-                            Conexion.delNota(this@MainActivity,listaNotas[position].idN)
-                            recargarLista()
-                        }
-                        builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
-
-                        }
-
-                        builder.show()
+                        eliminarNota(position)
                     }
                 })
         )
+    }
 
+    fun cargarPrincipal(){
+        listaNotas = Auxiliar.Conexion.obtenerListaNotas(this)
+        miRecyclerView = findViewById(R.id.listaNotas_mainActivity) as RecyclerView
+        miRecyclerView.setHasFixedSize(true)
+        miRecyclerView.layoutManager = LinearLayoutManager(this)
+        miAdapter = MiAdaptadorRecycler(listaNotas, this)
+        miRecyclerView.adapter = miAdapter
+    }
 
-
-
+    fun eliminarNota(position:Int){
+        val builder = AlertDialog.Builder(this@MainActivity)
+        builder.setTitle("Eliminar")
+        builder.setMessage("¿Desea eliminar la nota?")
+        builder.setPositiveButton("Si") { dialogInterface: DialogInterface, i: Int ->
+            when(listaNotas[position].tipo){
+                "Simple"->Conexion.delNotaSimple(this@MainActivity,listaNotas[position].idN)
+                "Lista"->Conexion.delNotaTareaTotal(this@MainActivity,listaNotas[position].idN)
+            }
+            Conexion.delNota(this@MainActivity,listaNotas[position].idN)
+            recargarLista()
+        }
+        builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+        }
+        builder.show()
     }
 
     private  fun  abrirNotaSimple( nota:Nota){
@@ -111,54 +106,56 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var input =  EditText(this)
-        input.hint = "NOMBRE DE LA NOTA"
-
         when(item.itemId){
-
             R.id.icAdd_main->{
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("Crear nueva nota")
-                builder.setMessage("¿Que clase de nota quiere crear?")
-                builder.setView(input)
-                builder.setPositiveButton("Simple") { dialogInterface: DialogInterface, i: Int ->
-                    if (!input.text.isEmpty()){
-                        Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Simple", Date()))
-
-                        recargarLista()
-
-                    val intent = Intent(this, NotaSimpleActivity::class.java)
-                        intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
-                    startActivity(intent)
-                    }else{
-                        lanzarToast("La nota necesita un nombre",this@MainActivity)
-                    }
-                }
-                builder.setNegativeButton("Lista"){ dialogInterface: DialogInterface, i: Int ->
-                    if (!input.text.isEmpty()){
-                        Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Lista", Date()))
-
-                        recargarLista()
-
-                        val intent = Intent(this, ListaTareaActivity::class.java)
-                        intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
-                        startActivity(intent)
-                    }else{
-                        lanzarToast("La nota necesita un nombre",this)
-                    }
-
-                }
-
-                builder.show()
+                lanzarMenuAdd()
             }
-
             R.id.icHora_main->{
-
-
-                    cambiarOrden()
+                cambiarOrden()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun lanzarMenuAdd(){
+        var input =  EditText(this)
+        input.hint = "NOMBRE DE LA NOTA"
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Crear nueva nota")
+        builder.setMessage("¿Que clase de nota quiere crear?")
+        builder.setView(input)
+        builder.setPositiveButton("Simple") { dialogInterface: DialogInterface, i: Int ->
+            addNotaSimple(input)
+        }
+        builder.setNegativeButton("Lista"){ dialogInterface: DialogInterface, i: Int ->
+            addNotaLista(input)
+        }
+        builder.show()
+    }
+
+    fun addNotaSimple(input:EditText){
+        if (!input.text.isEmpty()){
+            Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Simple", Date()))
+            recargarLista()
+            val intent = Intent(this, NotaSimpleActivity::class.java)
+            intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
+            startActivity(intent)
+        }else{
+            lanzarToast("La nota necesita un nombre",this@MainActivity)
+        }
+    }
+
+    fun addNotaLista(input:EditText){
+        if (!input.text.isEmpty()){
+            Auxiliar.Conexion.addNota(this, Nota(input.text.toString(), "Lista", Date()))
+            recargarLista()
+            val intent = Intent(this, ListaTareaActivity::class.java)
+            intent.putExtra("datosNota",Conexion.obtenerUltimaNota(this))
+            startActivity(intent)
+        }else{
+            lanzarToast("La nota necesita un nombre",this)
+        }
     }
 
     fun cambiarOrden(){
@@ -175,7 +172,6 @@ class MainActivity : AppCompatActivity() {
             miRecyclerView.adapter = miAdapter
             orden == 0
         }
-
     }
 
     fun recargarLista(){
@@ -183,6 +179,4 @@ class MainActivity : AppCompatActivity() {
         var miAdapter = MiAdaptadorRecycler(listaNotas, this)
         miRecyclerView.adapter = miAdapter
     }
-
-
 }

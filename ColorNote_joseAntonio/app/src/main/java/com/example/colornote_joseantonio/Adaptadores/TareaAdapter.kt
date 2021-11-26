@@ -33,7 +33,6 @@ class TareaAdapter(var notas : ArrayList<NotaTareas>, var  context: Context) : R
 
 
     override fun getItemCount(): Int {
-
         return notas.size
     }
 
@@ -43,11 +42,7 @@ class TareaAdapter(var notas : ArrayList<NotaTareas>, var  context: Context) : R
         val nombreTarea = view.findViewById(R.id.txtNombre_itemTarea) as TextView
         val imgTarea = view.findViewById(R.id.imgCheck_itemTarea) as ImageView
 
-
         fun bind(nota: NotaTareas, context: Context, pos: Int, miAdaptadorRecycler: TareaAdapter){
-
-
-
             when(nota.tachada){
                 0->{
                     nombreTarea.text = nota.texto
