@@ -32,7 +32,6 @@ object Conexion {
 
             "Simple"->{
                 addNotaSimple(contexto)
-
             }
         }
 
@@ -43,8 +42,6 @@ object Conexion {
         val admin = AdminSQLIteConexion(contexto, nombreBD, null, 1)
         val bd = admin.writableDatabase
         val registroNotaTarea = ContentValues()
-       // val selectNota = bd.rawQuery("select idN from notas ORDER BY idN DESC LIMIT 1", null)
-
 
             registroNotaTarea.put("idN", nt.idN)
             registroNotaTarea.put("texto",nt.texto)

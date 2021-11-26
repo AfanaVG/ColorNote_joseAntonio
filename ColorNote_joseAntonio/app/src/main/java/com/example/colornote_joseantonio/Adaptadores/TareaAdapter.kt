@@ -40,8 +40,9 @@ class TareaAdapter(var notas : ArrayList<NotaTareas>, var  context: Context) : R
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val nombreTarea = view.findViewById(R.id.txtNombre_itemContacto) as TextView
+        val nombreTarea = view.findViewById(R.id.txtNombre_itemTarea) as TextView
         val imgTarea = view.findViewById(R.id.imgCheck_itemTarea) as ImageView
+
 
         fun bind(nota: NotaTareas, context: Context, pos: Int, miAdaptadorRecycler: TareaAdapter){
 
@@ -57,10 +58,6 @@ class TareaAdapter(var notas : ArrayList<NotaTareas>, var  context: Context) : R
                     nombreTarea.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG)
                     imgTarea.setImageResource(R.drawable.ic_checkon)
                 }
-
-
-
-
             }
 
 

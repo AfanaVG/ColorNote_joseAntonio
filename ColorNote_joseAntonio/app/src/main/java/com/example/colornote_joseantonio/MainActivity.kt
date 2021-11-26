@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var miRecyclerView : RecyclerView
     lateinit var listaNotas:ArrayList<Nota>
     lateinit var miAdapter:MiAdaptadorRecycler
+    var orden=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -152,16 +153,29 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.icHora_main->{
-                var lista = Auxiliar.Conexion.obtenerListaNotas(this)
-                lista.sortByDescending {it.fechaHora }
-                var miAdapter = MiAdaptadorRecycler(lista, this)
-                miRecyclerView.adapter = miAdapter
 
 
-
+                    cambiarOrden()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun cambiarOrden(){
+        var lista = Auxiliar.Conexion.obtenerListaNotas(this)
+        if (orden == 0){
+            lista.sortByDescending { it.fechaHora }
+            var miAdapter = MiAdaptadorRecycler(lista, this)
+            miRecyclerView.adapter = miAdapter
+            orden == 1
+        }
+        if (orden == 1){
+            lista.sortBy { it.fechaHora }
+            var miAdapter = MiAdaptadorRecycler(lista, this)
+            miRecyclerView.adapter = miAdapter
+            orden == 0
+        }
+
     }
 
     fun recargarLista(){

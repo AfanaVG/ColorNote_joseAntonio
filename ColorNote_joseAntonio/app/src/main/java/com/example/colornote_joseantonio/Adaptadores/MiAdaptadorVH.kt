@@ -35,7 +35,7 @@ class MiAdaptadorVH : ArrayAdapter<Int> {
         if (view == null) {
             if (this.context!=null) {
                 view = context.layoutInflater.inflate(this.resource, null)
-                holder.txtItem = view.findViewById(R.id.txtNombre_itemContacto)
+                holder.txtItem = view.findViewById(R.id.txtNombre_itemTarea)
                 view.tag = holder
             }
         }
