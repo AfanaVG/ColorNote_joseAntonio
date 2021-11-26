@@ -14,12 +14,15 @@
         android:theme="@style/Theme.ColorNote_joseAntonio">
         <activity
             android:name=".ContactosActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ListaTareaActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".NotaSimpleActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

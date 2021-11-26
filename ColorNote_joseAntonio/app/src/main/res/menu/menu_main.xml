@@ -13,10 +13,5 @@
         android:icon="@drawable/ic_hora"
         android:title="Ordenar por hora"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/icBuscar_main"
-        android:icon="@drawable/ic_buscar"
-        android:title="Buscar"
-        app:showAsAction="always"/>
 
 </menu>
