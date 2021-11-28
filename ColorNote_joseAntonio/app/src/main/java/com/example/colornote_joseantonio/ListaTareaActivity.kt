@@ -71,12 +71,12 @@ class ListaTareaActivity : AppCompatActivity() {
 
     fun lanzarMenuOpcion(position: Int){
         val builder = AlertDialog.Builder(this@ListaTareaActivity)
-        builder.setTitle("Opciones")
-        builder.setMessage("¿Qué desea hacer?")
-        builder.setPositiveButton("Eliminar") { dialogInterface: DialogInterface, i: Int ->
+        builder.setTitle(getString(R.string.opciones))
+        builder.setMessage(getString(R.string.preguntaMenu))
+        builder.setPositiveButton(getString(R.string.eliminar)) { dialogInterface: DialogInterface, i: Int ->
             eliminarTarea(position)
         }
-        builder.setNegativeButton("Tomar foto") { dialogInterface: DialogInterface, i: Int ->
+        builder.setNegativeButton(getString(R.string.tomarFoto)) { dialogInterface: DialogInterface, i: Int ->
             tomarFoto()
         }
         builder.show()
@@ -111,19 +111,20 @@ class ListaTareaActivity : AppCompatActivity() {
 
     fun eliminarTarea(position: Int){
         val builder = AlertDialog.Builder(this@ListaTareaActivity)
-        builder.setTitle("Eliminar")
-        builder.setMessage("¿Desea eliminar la tarea?")
-        builder.setPositiveButton("Si") { dialogInterface: DialogInterface, i: Int ->
+        builder.setTitle(getString(R.string.eliminar))
+        builder.setMessage(getString(R.string.eliminarTarea))
+        builder.setPositiveButton(getString(R.string.si)) { dialogInterface: DialogInterface, i: Int ->
             Conexion.delNotaTarea(this@ListaTareaActivity,ntLista[position].idNT)
             recargarLista()
         }
-        builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+        builder.setNegativeButton(getString(R.string.no)) { dialogInterface: DialogInterface, i: Int ->
         }
         builder.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_nota_tarea, menu)
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false);
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -139,23 +140,20 @@ class ListaTareaActivity : AppCompatActivity() {
 
     fun addTarea(){
         var input =  EditText(this)
-        input.hint = "NOMBRE DE LA TAREA"
+        input.hint = getString(R.string.menuTareaNombre)
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Nueva nota")
-        builder.setMessage("Introduzca el nombre de la tarea")
+        builder.setTitle(getString(R.string.nuevaTarea))
+        builder.setMessage(getString(R.string.menuTareaNombre))
         builder.setView(input)
-        builder.setPositiveButton("Añadir") { dialogInterface: DialogInterface, i: Int ->
+        builder.setPositiveButton(getString(R.string.add)) { dialogInterface: DialogInterface, i: Int ->
             if (!input.text.isEmpty()){
                 Auxiliar.Conexion.addNotaTarea(this,
                     NotaTareas(resul.idN,resul.nombre,resul.tipo,resul.fechaHora,0,input.text.toString(),0))
                 recargarLista()
-                Utiles.FechaFormato.lanzarToast(
-                    "Tarea añadida correctamente",
-                    this
-                )
+
             }else{
                 Utiles.FechaFormato.lanzarToast(
-                    "La tarea necesita un nombre",
+                    getString(R.string.menuTareaError),
                     this
                 )
             }

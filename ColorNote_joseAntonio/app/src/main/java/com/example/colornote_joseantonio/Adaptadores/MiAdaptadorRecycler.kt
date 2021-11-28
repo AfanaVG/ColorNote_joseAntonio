@@ -108,7 +108,6 @@ class MiAdaptadorRecycler(var notas : ArrayList<Nota>, var  context: Context) : 
                             MiAdaptadorRecycler.idN = nota.idN
                         }
                         miAdaptadorRecycler.notifyDataSetChanged()
-                        Toast.makeText(context, "Valor seleccionado " +  MiAdaptadorRecycler.seleccionado.toString(), Toast.LENGTH_SHORT).show()
                     })
         }
     }

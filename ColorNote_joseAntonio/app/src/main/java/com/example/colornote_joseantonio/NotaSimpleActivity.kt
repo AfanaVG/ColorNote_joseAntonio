@@ -42,7 +42,7 @@ class NotaSimpleActivity : AppCompatActivity() {
         btnGuardar_NotaSimple.setOnClickListener(){
             ns.contenido = txtCotenido_notaSimple.text.toString()
             Conexion.modNotaSimple(this,ns)
-            lanzarToast("Cambios guardados",this)
+            lanzarToast(getString(R.string.guardar),this)
         }
 
         btnCancelar_NotaSimple.setOnClickListener(){
@@ -54,13 +54,14 @@ class NotaSimpleActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_nota_simple, menu)
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false);
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         var input =  EditText(this)
-        input.hint = "NUMERO DE TELEFONO"
+        input.hint = getString(R.string.numeroTelefono)
 
         when(item.itemId){
 
@@ -71,16 +72,16 @@ class NotaSimpleActivity : AppCompatActivity() {
                 startActivity(intent)*/
 
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("ENVIAR NOTA")
-                builder.setMessage("Introduzca el número al que desea enviar la nota")
+                builder.setTitle(getString(R.string.enviarNota))
+                builder.setMessage(getString(R.string.introducirNumero))
                 builder.setView(input)
-                builder.setPositiveButton("Enviar") { dialogInterface: DialogInterface, i: Int ->
+                builder.setPositiveButton(getString(R.string.enviar)) { dialogInterface: DialogInterface, i: Int ->
                     if (!input.text.isEmpty()){
                         numeroTel = input.text.toString()
                         enviar()
                     }else{
                         Utiles.FechaFormato.lanzarToast(
-                            "La tarea necesita un nombre",
+                            getString(R.string.telefonoError),
                             this
                         )
                     }
@@ -96,7 +97,7 @@ class NotaSimpleActivity : AppCompatActivity() {
         //Esta es una comprobación previa para ver si mi dispositivo puede enviar sms o no.
         if (!pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY) && !pm.hasSystemFeature(
                 PackageManager.FEATURE_TELEPHONY_CDMA)) {
-            Toast.makeText(this,"Lo sentimos, tu dispositivo probablemente no pueda enviar SMS...",
+            Toast.makeText(this,getString(R.string.errorSMS),
                 Toast.LENGTH_SHORT).show()
         }
         else {
@@ -118,9 +119,9 @@ class NotaSimpleActivity : AppCompatActivity() {
             if (TextUtils.isDigitsOnly(myNumber)) {
                 val smsManager: SmsManager = SmsManager.getDefault()
                 smsManager.sendTextMessage(myNumber, null, myMsg, null, null)
-                Toast.makeText(this, "Mensaje enviado...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.mensajeEnviado), Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "El número no es correcto...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.telefonoError), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -131,7 +132,7 @@ class NotaSimpleActivity : AppCompatActivity() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 miMensaje();
             } else {
-                Toast.makeText(this, "No tienes los permisos requeridos...",
+                Toast.makeText(this, getString(R.string.errorPermiso),
                     Toast.LENGTH_SHORT).show();
             }
         }

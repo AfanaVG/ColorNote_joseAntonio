@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">ColorNote_joseAntonio</string>
+    <string name="app_name">BlueNote</string>
+    <string name="notaSimple">Simple</string>
+    <string name="notaLista">Lista</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="eliminarNota">¿Desea eliminar la nota?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="menuNotaNombre">NOMBRE DE LA NOTA</string>
+    <string name="menuNombre">Crear nueva nota</string>
+    <string name="menuNotaPregunta">¿Que clase de nota quiere crear?</string>
+    <string name="menuNotaError">La nota necesita un nombre</string>
+    <string name="opciones">Opciones</string>
+    <string name="preguntaMenu">¿Qué desea hacer?</string>
+    <string name="tomarFoto">Tomar foto</string>
+    <string name="eliminarTarea">¿Desea eliminar la tarea?</string>
+    <string name="menuTareaNombre">NOMBRE DE LA TAREA</string>
+    <string name="nuevaTarea">Nueva tarea</string>
+    <string name="menuNombreTarea">Introduzca el nombre de la tarea</string>
+    <string name="add">Añadir</string>
+    <string name="menuTareaError">La tarea necesita un nombre</string>
+    <string name="guardar">Cambios guardados</string>
+    <string name="numeroTelefono">NUMERO DE TELEFONO</string>
+    <string name="enviarNota">ENVIAR NOTA</string>
+    <string name="introducirNumero">Introduzca el número al que desea enviar la nota</string>
+    <string name="enviar">Enviar</string>
+    <string name="telefonoError">Numero no valido</string>
+    <string name="errorSMS">Lo sentimos, tu dispositivo probablemente no pueda enviar SMS...</string>
+    <string name="mensajeEnviado">Mensaje enviado</string>
+    <string name="errorPermiso">No tiene los permisos necesarios</string>
+    <string name="btnGuardar">GUARDAR</string>
+    <string name="cancelar">CANCELAR</string>
+    <string name="mensaje">Mandar Mensaje</string>
+    <string name="mensajeAdd">Añadir Nota</string>
+    <string name="ordenar">Ordenar nota</string>
 </resources>

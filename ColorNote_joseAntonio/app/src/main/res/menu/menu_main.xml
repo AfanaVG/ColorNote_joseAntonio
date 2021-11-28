@@ -5,13 +5,13 @@
     <item
         android:id="@+id/icAdd_main"
         android:icon="@drawable/ic_add_note"
-        android:title="Añadir nota"
-        android:text="Añadir nota"
+        android:title="@string/mensajeAdd"
+        android:text="@string/mensajeAdd"
         app:showAsAction="always"/>
     <item
         android:id="@+id/icHora_main"
         android:icon="@drawable/ic_hora"
-        android:title="Ordenar por hora"
+        android:title="@string/ordenar"
         app:showAsAction="always"/>
 
 </menu>
