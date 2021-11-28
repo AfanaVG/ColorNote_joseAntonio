@@ -15,6 +15,8 @@ import kotlin.collections.ArrayList
 object Conexion {
     var nombreBD = "notasBD.db3"
 
+
+
     fun cambiarBD(nombreBD:String){
         this.nombreBD = nombreBD
     }
@@ -30,9 +32,10 @@ object Conexion {
         bd.close()
         when(n.tipo){
 
+            /*
             "Simple"->{
                 addNotaSimple(contexto)
-            }
+            }*/
         }
 
 

@@ -4,8 +4,8 @@
     <item
         android:id="@+id/icAdd_main"
         android:icon="@drawable/ic_add_note"
-        android:title="Añadir nota"
-        android:text="Añadir nota"
+        android:title="@string/mensajeAdd"
+        android:text="@string/mensajeAdd"
         app:showAsAction="always"
 />
 </menu>

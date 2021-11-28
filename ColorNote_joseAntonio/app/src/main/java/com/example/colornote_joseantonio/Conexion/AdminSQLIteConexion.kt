@@ -17,10 +17,6 @@ class AdminSQLIteConexion(context: Context, name: String, factory: SQLiteDatabas
         db.execSQL("create table notasSimples(idN Integer references notas(idN),contenido text)")
         db.execSQL("create table notasTareas(idN Integer references notas(idN),idNT Integer primary key autoincrement,texto text, tachada Integer )")
 
-
-
-
-
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
