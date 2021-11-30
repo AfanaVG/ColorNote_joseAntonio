@@ -16,6 +16,9 @@ import com.example.colornote_joseantonio.Model.Contacto
 
 class ContactosActivity : AppCompatActivity() {
 
+    //Activity sin implementar
+    //Esta Activity deberia recoger y cargar los contactos del telefono en una lista
+
     val REQUEST_READ_CONTACTS = 79
     var seleccionado = -1
     var mobileArray: ArrayList<Contacto> = ArrayList()

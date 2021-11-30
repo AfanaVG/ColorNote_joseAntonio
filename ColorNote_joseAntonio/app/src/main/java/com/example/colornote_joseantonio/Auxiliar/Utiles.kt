@@ -15,21 +15,19 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 
 
+//Clase con varias utilidades para esta y futuras aplicaciones
 object Utiles {
 
 
+    //Funcion que lanzara un toast en la activity que se la invoque, necesita el mensaje y el contexto
+    fun lanzarToast(mensaje:String,context: Context){
+        val toast = Toast.makeText(context, mensaje, Toast.LENGTH_SHORT)
+        toast.show()
+    }
+
+
+    //Clase con funciones que devolveran distintos formatos de fecha
     object FechaFormato{
-        /*
-        fun getFormatoFecha(estilo:Int): SimpleDateFormat {
-            var formatoFecha:SimpleDateFormat
-            when(estilo){
-                1-> formatoFecha = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-                2-> formatoFecha = SimpleDateFormat("HH:mm:ss")
-                3-> formatoFecha = SimpleDateFormat("yyyy/MM/dd")
-                else-> formatoFecha = SimpleDateFormat()
-            }
-            return formatoFecha
-        }*/
 
         fun getFormatoFechaCompleta(): SimpleDateFormat {
             return SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
@@ -40,53 +38,49 @@ object Utiles {
         fun getFormatoFechaCalendario(): SimpleDateFormat {
             return SimpleDateFormat("yyyy/MM/dd")
         }
+    }
 
-        fun lanzarToast(mensaje:String,context: Context){
-            val toast = Toast.makeText(context, mensaje, Toast.LENGTH_SHORT)
-            toast.show()
+    //Clase que permite usar los eventos click y longClick de un RecyclerView
+    class RecyclerItemClickListener(
+        context: Context?,
+        recyclerView: RecyclerView,
+        private val mListener: OnItemClickListener?
+    ) :
+        OnItemTouchListener {
+        interface OnItemClickListener {
+            fun onItemClick(view: View?, position: Int)
+            fun onLongItemClick(view: View?, position: Int)
         }
 
-        class RecyclerItemClickListener(
-            context: Context?,
-            recyclerView: RecyclerView,
-            private val mListener: OnItemClickListener?
-        ) :
-            OnItemTouchListener {
-            interface OnItemClickListener {
-                fun onItemClick(view: View?, position: Int)
-                fun onLongItemClick(view: View?, position: Int)
+        var mGestureDetector: GestureDetector
+        override fun onInterceptTouchEvent(view: RecyclerView, e: MotionEvent): Boolean {
+            val childView: View? = view.findChildViewUnder(e.x, e.y)
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                mListener.onItemClick(childView, view.getChildAdapterPosition(childView))
+                return true
             }
+            return false
+        }
 
-            var mGestureDetector: GestureDetector
-            override fun onInterceptTouchEvent(view: RecyclerView, e: MotionEvent): Boolean {
-                val childView: View? = view.findChildViewUnder(e.x, e.y)
-                if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
-                    mListener.onItemClick(childView, view.getChildAdapterPosition(childView))
+        override fun onTouchEvent(view: RecyclerView, motionEvent: MotionEvent) {}
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+
+        init {
+            mGestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
+                override fun onSingleTapUp(e: MotionEvent): Boolean {
                     return true
                 }
-                return false
-            }
 
-            override fun onTouchEvent(view: RecyclerView, motionEvent: MotionEvent) {}
-            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-
-            init {
-                mGestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
-                    override fun onSingleTapUp(e: MotionEvent): Boolean {
-                        return true
+                override fun onLongPress(e: MotionEvent) {
+                    val child: View? = recyclerView.findChildViewUnder(e.x, e.y)
+                    if (child != null && mListener != null) {
+                        mListener.onLongItemClick(
+                            child,
+                            recyclerView.getChildAdapterPosition(child)
+                        )
                     }
-
-                    override fun onLongPress(e: MotionEvent) {
-                        val child: View? = recyclerView.findChildViewUnder(e.x, e.y)
-                        if (child != null && mListener != null) {
-                            mListener.onLongItemClick(
-                                child,
-                                recyclerView.getChildAdapterPosition(child)
-                            )
-                        }
-                    }
-                })
-            }
+                }
+            })
         }
     }
 

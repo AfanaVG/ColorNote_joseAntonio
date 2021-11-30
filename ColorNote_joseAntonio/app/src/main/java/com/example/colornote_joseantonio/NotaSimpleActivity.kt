@@ -9,25 +9,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.colornote_joseantonio.Auxiliar.Utiles
-import com.example.colornote_joseantonio.Auxiliar.Utiles.FechaFormato.lanzarToast
+import com.example.colornote_joseantonio.Auxiliar.Utiles.lanzarToast
 import com.example.colornote_joseantonio.Model.Nota
 import com.example.colornote_joseantonio.Model.NotaSimple
-import com.example.colornote_joseantonio.Model.NotaTareas
 import kotlinx.android.synthetic.main.activity_nota_simple.*
 
 class NotaSimpleActivity : AppCompatActivity() {
+
     lateinit var ns: NotaSimple
     private val permissionRequest = 101
+
+    //Variable en la que se guardara el numero de telefono
     var numeroTel:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +66,6 @@ class NotaSimpleActivity : AppCompatActivity() {
         when(item.itemId){
 
             R.id.icMensaje_notaSimple->{
-                /*
-                val intent = Intent(this, ContactosActivity::class.java)
-                intent.putExtra("mensaje",ns.contenido)
-                startActivity(intent)*/
 
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.enviarNota))
@@ -80,7 +76,7 @@ class NotaSimpleActivity : AppCompatActivity() {
                         numeroTel = input.text.toString()
                         enviar()
                     }else{
-                        Utiles.FechaFormato.lanzarToast(
+                        Utiles.lanzarToast(
                             getString(R.string.telefonoError),
                             this
                         )

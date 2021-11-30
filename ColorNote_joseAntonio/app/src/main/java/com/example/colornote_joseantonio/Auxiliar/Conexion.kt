@@ -30,13 +30,6 @@ object Conexion {
         registroNota.put("fechaHora",Utiles.FechaFormato.getFormatoFechaCompleta().format(n.fechaHora))
         bd.insert("notas", null, registroNota)
         bd.close()
-        when(n.tipo){
-
-            /*
-            "Simple"->{
-                addNotaSimple(contexto)
-            }*/
-        }
 
 
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ColorNote_joseAntonio</string>
+    <string name="app_name">BlueNote</string>
     <string name="notaSimple">Simple</string>
     <string name="notaLista">List</string>
     <string name="eliminar">Delete</string>

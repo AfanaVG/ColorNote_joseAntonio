@@ -33,15 +33,23 @@ import kotlin.collections.ArrayList
 
 class ListaTareaActivity : AppCompatActivity() {
 
+    //Nota que sacaremos del intent.getExtras
     var resul:Nota = Nota()
+
+    //Lista de NotaTareas sacadas de la base de datos
     var ntLista:ArrayList<NotaTareas> = ArrayList()
 
+    //Control de la camara
     private val cameraRequest = 1888
     lateinit var imagenSacada: ImageView
 
+    //Recycler view y adapter que manejara nuestra lista
     lateinit var miRecyclerView : RecyclerView
-    lateinit var listaTareas:ArrayList<NotaTareas>
     lateinit var miAdapter:TareaAdapter
+
+
+
+    //Tamaño maximo de caracteres a la hora de introducir el nombre de las tareas
     var max_EditText = 34
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +57,18 @@ class ListaTareaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lista_tarea)
 
         cargarPrincipal()
+        eventosClick()
 
+
+    }
+
+    //Metodo que controla si a un item del RecyclerView se le hace un click o un longClick
+    fun eventosClick(){
         listaTareas_listaTareas.addOnItemTouchListener(
-            Utiles.FechaFormato.RecyclerItemClickListener(
+            Utiles.RecyclerItemClickListener(
                 this,
                 listaTareas_listaTareas,
-                object : Utiles.FechaFormato.RecyclerItemClickListener.OnItemClickListener {
+                object : Utiles.RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         when(ntLista[position].tachada){
                             0-> Conexion.modNotaTarea(this@ListaTareaActivity,ntLista[position],1)
@@ -68,9 +82,21 @@ class ListaTareaActivity : AppCompatActivity() {
                     }
                 })
         )
-
     }
 
+    //Metodo que carga los datos de la base de datos en la lista, tambien recoge la variable pasada atraves del intent
+    fun cargarPrincipal(){
+        resul = intent.getSerializableExtra("datosNota") as Nota
+        ntLista = Conexion.obtenerNotaTareas(this,resul)
+        txtNombre_notaLista.text = resul.nombre
+        miRecyclerView = findViewById(R.id.listaTareas_listaTareas) as RecyclerView
+        miRecyclerView.setHasFixedSize(true)
+        miRecyclerView.layoutManager = LinearLayoutManager(this)
+        miAdapter = TareaAdapter(ntLista, this)
+        miRecyclerView.adapter = miAdapter
+    }
+
+    //AlertDialog que preguntara que se desea hacer con la tarea
     fun lanzarMenuOpcion(position: Int){
         val builder = AlertDialog.Builder(this@ListaTareaActivity)
         builder.setTitle(getString(R.string.opciones))
@@ -84,18 +110,9 @@ class ListaTareaActivity : AppCompatActivity() {
         builder.show()
     }
 
-    fun cargarPrincipal(){
-        resul = intent.getSerializableExtra("datosNota") as Nota
-        ntLista = Conexion.obtenerNotaTareas(this,resul)
-        txtNombre_notaLista.text = resul.nombre
-        listaTareas = Auxiliar.Conexion.obtenerNotaTareas(this,resul)
-        miRecyclerView = findViewById(R.id.listaTareas_listaTareas) as RecyclerView
-        miRecyclerView.setHasFixedSize(true)
-        miRecyclerView.layoutManager = LinearLayoutManager(this)
-        miAdapter = TareaAdapter(listaTareas, this)
-        miRecyclerView.adapter = miAdapter
-    }
 
+
+    //Evento que invoca a la camara para scar una foto
     fun tomarFoto(){
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), cameraRequest)
@@ -111,6 +128,7 @@ class ListaTareaActivity : AppCompatActivity() {
         }
     }
 
+    //AlertDialog que preguntara si se desea eliminar la tarea
     fun eliminarTarea(position: Int){
         val builder = AlertDialog.Builder(this@ListaTareaActivity)
         builder.setTitle(getString(R.string.eliminar))
@@ -124,22 +142,7 @@ class ListaTareaActivity : AppCompatActivity() {
         builder.show()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_nota_tarea, menu)
-        getSupportActionBar()?.setDisplayShowTitleEnabled(false);
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.icAdd_main->{
-                addTarea()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-
+    //Añade la tarea a la base de datos y a la lista
     fun addTarea(){
         var input =  EditText(this)
         input.hint = getString(R.string.menuTareaNombre)
@@ -155,7 +158,7 @@ class ListaTareaActivity : AppCompatActivity() {
                 recargarLista()
 
             }else{
-                Utiles.FechaFormato.lanzarToast(
+                Utiles.lanzarToast(
                     getString(R.string.menuTareaError),
                     this
                 )
@@ -164,7 +167,24 @@ class ListaTareaActivity : AppCompatActivity() {
         builder.show()
     }
 
+    //Se carga el ActionBar personalizado
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_nota_tarea, menu)
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false);
+        return super.onCreateOptionsMenu(menu)
+    }
 
+    //Se asocian las funciones a los iconos del ActionBar
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.icAdd_main->{
+                addTarea()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    //Recarga la lista de tareas
     fun recargarLista(){
         ntLista = Conexion.obtenerNotaTareas(this,resul)
         var miAdapter = TareaAdapter(ntLista, this)
