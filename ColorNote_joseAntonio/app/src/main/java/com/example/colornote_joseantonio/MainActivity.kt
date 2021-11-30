@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var miRecyclerView : RecyclerView
     lateinit var listaNotas:ArrayList<Nota>
     lateinit var miAdapter:MiAdaptadorRecycler
+    var max_EditText = 15
+
     var orden=0
 
 
@@ -121,6 +124,7 @@ class MainActivity : AppCompatActivity() {
     fun lanzarMenuAdd(){
         var input =  EditText(this)
         input.hint = getString(R.string.menuNotaNombre)
+        input.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(max_EditText))
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.menuNombre))

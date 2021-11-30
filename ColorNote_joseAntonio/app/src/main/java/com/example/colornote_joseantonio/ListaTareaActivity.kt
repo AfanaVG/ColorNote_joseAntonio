@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputFilter
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -41,6 +42,7 @@ class ListaTareaActivity : AppCompatActivity() {
     lateinit var miRecyclerView : RecyclerView
     lateinit var listaTareas:ArrayList<NotaTareas>
     lateinit var miAdapter:TareaAdapter
+    var max_EditText = 34
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,6 +143,7 @@ class ListaTareaActivity : AppCompatActivity() {
     fun addTarea(){
         var input =  EditText(this)
         input.hint = getString(R.string.menuTareaNombre)
+        input.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(max_EditText))
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.nuevaTarea))
         builder.setMessage(getString(R.string.menuTareaNombre))
