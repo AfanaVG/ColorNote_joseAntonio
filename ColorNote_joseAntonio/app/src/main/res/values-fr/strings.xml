@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BlueNote</string>
+    <string name="notaSimple">Simple</string>
+    <string name="notaLista">Prêt</string>
+    <string name="eliminar">Supprimer</string>
+    <string name="eliminarNota">Voulez-vous supprimer la note ?</string>
+    <string name="si">OUI</string>
+    <string name="no">"Non "</string>
+    <string name="menuNotaNombre">"REMARQUE NOM "</string>
+    <string name="menuNombre">Créer une nouvelle note</string>
+    <string name="menuNotaPregunta">" Quel type de note voulez-vous créer ?"</string>
+    <string name="menuNotaError">La note a besoin d\'un nom</string>
+    <string name="opciones">"Les choix "</string>
+    <string name="preguntaMenu">" Qu'est-ce que tu aimerais faire?"</string>
+    <string name="tomarFoto">Prendre photo</string>
+    <string name="eliminarTarea">Voulez-vous supprimer la tâche ?</string>
+    <string name="menuTareaNombre">" NOM DU DEVOIR"</string>
+    <string name="nuevaTarea">De nouveaux devoirs</string>
+    <string name="menuNombreTarea">Entrez le nom de la tâche</string>
+    <string name="add">Ajouter</string>
+    <string name="menuTareaError">La tâche a besoin d\'un nom</string>
+    <string name="guardar">"Changements sauvegardés "</string>
+    <string name="numeroTelefono">NUMÉRO DE TÉLÉPHONE</string>
+    <string name="enviarNota">ENVOYER NOTE</string>
+    <string name="introducirNumero">Entrez le numéro auquel vous souhaitez envoyer la note</string>
+    <string name="enviar">Envoyer</string>
+    <string name="telefonoError">Numéro invalide</string>
+    <string name="mensajeEnviado">Message envoyé</string>
+    <string name="errorSMS">" Désolé, votre appareil ne peut probablement pas envoyer de SMS..."</string>
+    <string name="errorPermiso">Vous n\'avez pas les autorisations nécessaires</string>
+    <string name="btnGuardar">SAUVEGARDER</string>
+    <string name="cancelar">ANNULER</string>
+    <string name="mensaje">Envoyer le message</string>
+    <string name="mensajeAdd">"Ajouter une note "</string>
+    <string name="ordenar">Note de tri</string>
+</resources>
